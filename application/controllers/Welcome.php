@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+//include MY_Controller
 
 class Welcome extends CI_Controller {
 
@@ -19,7 +20,88 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-		$this->load->view('welcome_message');
+	{	
+			// echo '<link rel="stylesheet" type="text/css" href="/application/views/main.css">';
+            $this->load->helper(array('form', 'url'));
+
+            $this->load->library('form_validation');
+            
+            $this->form_validation->set_rules('username', 'Username', 'required');
+            $this->form_validation->set_rules('password', 'Password', 'required');
+
+            if ($this->form_validation->run() == FALSE && !isset($this->session->userdata['logged_on']))
+            {
+                    echo form_open('welcome');
+					$this->data['validation'] = validation_errors();
+                    $this->parser->parse('_logonform', $this->data);
+            }
+            else
+                {
+                if (isset($this->session->userdata["logged_on"])) {
+                    $this->data['username'] = $this->session->userdata["username"];
+                } else {
+                $this->session->set_userdata("logged_on", true);
+                $this->data['username'] = $this->input->post('username');
+                }
+
+                $this->session->set_userdata("username", $this->data['username']);
+                $this->data['stocksList'] = $this->getStocks();
+                $this->data['playersList'] = $this->getPlayers();
+
+                $this->parser->parse('homepage', $this->data);
+                }
 	}
+        
+        public function logout() {
+            $this->session->unset_userdata('logged_on');
+            $this->session->sess_destroy();
+            $this->index();
+        }
+        
+        public function getStocks() {
+                //// Do it all over again for stocks
+		// Get all stocks from model
+		$result = $this->stocks->all();
+		
+		// Build array of formatted cells
+		foreach ($result as $myrow)
+			$cells[] = $this->parser->parse('_stocksCell', (array) $myrow, true);
+			
+		// prime the table class
+		$this->load->library('table');
+		$parms = array(
+			'table_open' => '<table class="gallery">',
+			'cell_start' => '<td class="homepageCell">',
+			'cell_alt_start' => '<td class="homepageCell">'
+		);
+		$this->table->set_template($parms);
+		
+		// Generate table (finally)
+		$rows = $this->table->make_columns($cells, 1);
+		return $this->table->generate($rows);
+			
+        }
+        
+        public function getPlayers() {
+            		// Get all players from model
+		$players = $this->players->all();
+		
+		// Build array of formatted cells
+		foreach ($players as $playa)
+			$cells[] = $this->parser->parse('_playerCell', (array) $playa, true);
+			
+		// prime the table class
+		$this->load->library('table');
+		$parms = array(
+			'table_open' => '<table class="gallery">',
+			'cell_start' => '<td class="homepageCell">',
+			'cell_alt_start' => '<td class="homepageCell">'
+		);
+		$this->table->set_template($parms);
+		
+		// Generate table (finally)
+		$rows = $this->table->make_columns($cells, 1);
+		return $this->table->generate($rows);
+        }
+
 }
