@@ -22,6 +22,14 @@ class Transactions extends CI_Model {
 		return $query->result_array();            
         }
         
+        function byStock($stockname) {
+                $this->db->order_by("DateTime");
+                $checkName = "Stock = '{$stockname}'";
+                $this->db->where($checkName);
+		$query = $this->db->get('transactions');
+		return $query->result_array();  
+        }
+        
         function amountByPlayer($pname){
                 $this->db->order_by("Stock");
                 $this->db->select("Stock, SUM(CASE
