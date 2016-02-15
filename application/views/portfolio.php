@@ -8,3 +8,5 @@ Current cash:${cash}<br>
 <br>
 <h3>Transaction History:</h3>
 {transactions}
+
+<p><a href="/welcome">Return to Homepage</a></p>
