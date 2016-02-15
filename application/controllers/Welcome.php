@@ -21,6 +21,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{	
+			// echo '<link rel="stylesheet" type="text/css" href="/application/views/main.css">';
             $this->load->helper(array('form', 'url'));
 
             $this->load->library('form_validation');
@@ -30,7 +31,9 @@ class Welcome extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE && !isset($this->session->userdata['logged_on']))
             {
-                    $this->load->view('_logonform');
+                    echo form_open('welcome');
+					$this->data['validation'] = validation_errors();
+                    $this->parser->parse('_logonform', $this->data);
             }
             else
                 {
