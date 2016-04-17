@@ -21,6 +21,8 @@ Active players:
 </td></tr>
 </table>
 
+<p><h3><a href="/buy">Buy Stocks</a></h3>
+
 <p><a href="/welcome/logout">Log out</a>
 
 </div>
