@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'parser', 'encrypt', 'session');
+$autoload['libraries'] = array('database', 'parser', 'encrypt', 'session', 'curl', 'rest');
 
 /*
 | -------------------------------------------------------------------
@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'form');
 
 /*
 | -------------------------------------------------------------------
@@ -125,5 +125,8 @@ $autoload['language'] = array();
 | in the controller:
 |
 |	$autoload['model'] = array('first_model' => 'first');
+
+Case-sensitive!!  -BL
 */
+
 $autoload['model'] = array('players', 'stocks', 'transactions', 'movements');

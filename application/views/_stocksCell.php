@@ -1,4 +1,4 @@
-<b><a href="history/stock/{Code}">{Code}</a></b> <em>{Name}</em> <b style="color: red">{Category}</b> {Value} <!-- Field names are case-sensitive. :P -->
+<b><a href="history/stock/{Code}">{code}</a></b> <em>{name}</em> <b style="color: red">{category}</b> {value} <!-- Field names are case-sensitive. :P -->
 
 
             
