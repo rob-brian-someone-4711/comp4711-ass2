@@ -49,7 +49,14 @@ class Welcome extends CI_Controller {
                 $this->data['stocksList'] = $this->getStocks();
                 $this->data['playersList'] = $this->getPlayers();
 
-                $this->parser->parse('homepage', $this->data);
+                $session_info = $this->session->userdata('login_info');
+                
+                if($session_info['role']=='admin'){
+//-----------------TODO: different homepage for admin-----------------------------------
+                    $this->parser->parse('homepage', $this->data);
+                }else{
+                    $this->parser->parse('homepage', $this->data);
+                }
                 }
 	}
         
@@ -67,7 +74,7 @@ class Welcome extends CI_Controller {
                     'isloggedin'=> 1,
                     'role'=>$row->role
                     );
-                    $this->session->set_userdata('logged_in', $sess_array);
+                    $this->session->set_userdata('login_info', $sess_array);
                 }
                 return TRUE;
             }
