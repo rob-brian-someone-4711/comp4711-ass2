@@ -21,7 +21,7 @@ class Test extends CI_Controller {
 	 */
 	public function index()
 	{		
-		echo "<h2>Test controller!</h2>";
+		echo "<h2>Test controller!</h2>";                
 	} 
 	
 	public function getStatus()

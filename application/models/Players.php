@@ -32,7 +32,21 @@ class Players extends CI_Model {
             return $query->result_array();
         }
         
-        
+        function login($username, $password){
+            $this->db->select('player, password, role');
+            $this->db->from('players');
+            $this->db->where('player', $username);
+            $this->db->where('password', $password);
+            $this->db->limit(1);
+            $query = $this -> db -> get();
+            //If there is an entry with that password
+            if($query -> num_rows() == 1){
+                return $query->result();
+            }
+            else{
+                return false;
+            }
+        }
       	
 	/*
 	function newest() {

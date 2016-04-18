@@ -94,4 +94,5 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE,
 	'port' => 3306
+        //'port' => 4712
 );
